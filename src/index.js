@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 dotenv.config()
 
 import globalRoute from './route/globalRoute.js'
+import userRoute from './route/userRoute.js'
 const app = express()
 const PORT = process.env.PORT || 3001
 
