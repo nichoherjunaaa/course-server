@@ -3,12 +3,13 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 dotenv.config()
+import db from './config/dbConnection.js'
 
 import globalRoute from './route/globalRoute.js'
 import userRoute from './route/userRoute.js'
 const app = express()
 const PORT = process.env.PORT || 3001
-
+db()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('public'))
