@@ -4,15 +4,12 @@ var userSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
-        unique:true,
-        index:true,
     },
-    email:{
+    photo : {
         type:String,
         required:true,
-        unique:true,
     },
-    mobile:{
+    email:{
         type:String,
         required:true,
         unique:true,
@@ -21,6 +18,11 @@ var userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    role : {
+        type : String,
+        enum : ['manager', 'student'],
+        default : 'manager'
+    }
 });
 
 const User = mongoose.model('User', userSchema);

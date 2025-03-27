@@ -16,7 +16,7 @@ app.use(express.static('public'))
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('api ready !')
 })
 
 app.use('/api', globalRoute)
