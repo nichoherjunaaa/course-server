@@ -1,8 +1,10 @@
 import express from 'express'
-import { createUser, getUser } from '../controller/userController.js'
+import { signUpUser, getUser } from '../controller/userController.js'
+import { validateRequest } from './../middleware/validateRequest.js';
+import { signUpSchema } from '../utils/Schema.js';
 const userRoute = express.Router()
 
 userRoute.get('/', getUser)
-userRoute.post('/', createUser)
+userRoute.post('/signup', validateRequest(signUpSchema) ,signUpUser)
 
 export default userRoute
