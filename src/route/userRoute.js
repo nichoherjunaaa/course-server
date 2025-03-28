@@ -5,6 +5,6 @@ import { signUpSchema } from '../utils/Schema.js';
 const userRoute = express.Router()
 
 userRoute.get('/', getUser)
-userRoute.post('/signup', validateRequest(signUpSchema) ,signUpUser)
+userRoute.post('/sign-up', validateRequest(signUpSchema) ,signUpUser)
 
 export default userRoute

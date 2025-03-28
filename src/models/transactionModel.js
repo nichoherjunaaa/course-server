@@ -1,5 +1,4 @@
-const mongoose = require('mongoose'); // Erase if already required
-
+import mongoose from 'mongoose'
 // Declare the Schema of the Mongo model
 var transactionSchema = new mongoose.Schema({
     user: {
@@ -9,15 +8,15 @@ var transactionSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
-    }
+    },
     status: {
         type: String,
         enum: ['pending', 'success', 'failed'],
         default: 'pending'
     }
-
-},
-    timestamps = true
+}, {
+    timestamps : true
+}
 );
 
 //Export the model
