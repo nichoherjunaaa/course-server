@@ -40,7 +40,7 @@ export const signUpUser = async (req, res) => {
                 customer_details: {
                     email: user.email,
                 },
-                callback: {
+                callbacks: {
                     finish: "http://localhost:5173/success-checkout"
                 }
             })
