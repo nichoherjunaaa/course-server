@@ -8,6 +8,7 @@ import db from './config/dbConnection.js'
 import globalRoute from './route/globalRoute.js'
 import userRoute from './route/userRoute.js'
 import paymentRoute from './route/paymentRoute.js'
+import courseRoute from './route/courseRoute.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 app.use('/api', globalRoute)
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/payment', paymentRoute)
-
+app.use('/api/v1/course', courseRoute)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
