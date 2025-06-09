@@ -10,7 +10,7 @@ export const verifyToken = async (req, res, next) => {
         if (!user) {
             return res.status(400).json({ message: "Token expired" });
         }
-        
+
         req.user = {
             id: user._id.toString(),
             name: user.name,
