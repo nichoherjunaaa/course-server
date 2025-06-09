@@ -68,7 +68,7 @@ export const signUpUser = async (req, res) => {
 export const signInUser = async (req, res) => {
     try {
         const body = req.body;
-        const existingUser = User.findOne({ email: body.email });
+        const existingUser = await User.findOne({ email: body.email });
         if (!existingUser) {
             return res.status(404).json({
                 message: "User not found"

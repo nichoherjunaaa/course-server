@@ -20,5 +20,4 @@ var transactionSchema = new mongoose.Schema({
 );
 
 //Export the model
-const Transaction = mongoose.model('Transaction', transactionSchema);
-export default Transaction
+export default mongoose.model('Transaction', transactionSchema);
