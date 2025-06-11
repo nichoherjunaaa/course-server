@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import categoryModel from './categoryModel.js';
+import courseDetailModel from './courseDetailModel.js';
+import userModel from './userModel.js';
 
 var courseSchema = new mongoose.Schema({
     name: {
@@ -36,5 +39,26 @@ var courseSchema = new mongoose.Schema({
         }
     ]
 })
+
+courseSchema.post('findOneAndDelete', async (doc) => {
+    if (doc) {
+        await categoryModel.findByIdAndUpdate(doc.category, {
+            $pull: {
+                courses: doc._id
+            }
+        });
+
+        await courseDetailModel.deleteMany({ course: doc._id });
+
+        doc.student?.map(async (std) => {
+            await userModel.findByIdAndUpdate(std._id, {
+                $pull: {
+                    course: doc._id
+                }
+            });
+        });
+    }
+});
+
 
 export default mongoose.model('Course', courseSchema);

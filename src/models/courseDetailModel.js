@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 var courseDetailSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -23,5 +22,7 @@ var courseDetailSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+
 
 export default mongoose.model('CourseDetail', courseDetailSchema);
