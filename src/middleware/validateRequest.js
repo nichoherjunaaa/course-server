@@ -5,6 +5,7 @@ export const validateRequest = (schema) => async(req,res, next) => {
         schema.parse(req.body);
         next()
     } catch (error) {
+        // console.log(schema);
         if(error instanceof ZodError){
             const errorMessages = error.issues.map((err) => err.message );
             return res.status(500).json({

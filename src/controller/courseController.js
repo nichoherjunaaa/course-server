@@ -1,5 +1,6 @@
 import categoryModel from "../models/categoryModel.js";
-import courseModel from "../models/courseModel.js"
+import courseModel from "../models/courseModel.js";
+import courseDetailModel from "../models/courseDetailModel.js";
 import userModel from "../models/userModel.js";
 import { mutateCourseSchema } from "../utils/schema.js";
 import fs from 'fs'
@@ -44,12 +45,28 @@ export const getCourses = async (req, res) => {
     }
 }
 
-export const getCategories = async(req, res) => {
+export const getCategories = async (req, res) => {
     try {
         const categories = await categoryModel.find();
         return res.json({
             message: "get categories success",
             data: categories
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
+
+export const getCourseById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const course = await courseModel.findById(id).populate('details');
+        return res.json({
+            message: "get course by id success",
+            data: course
         })
     } catch (error) {
         console.log(error);
@@ -175,6 +192,7 @@ export const updateCourse = async (req, res) => {
         })
     }
 }
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -199,5 +217,39 @@ export const deleteCourse = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+export const postContentCourse = async (req, res) => {
+    try {
+        const body = req.body
+        
+        const course = await courseModel.findById(body.courseId)
+        
+        const content = new courseDetailModel({
+            title: body.title,
+            type : body.type,
+            course : course._id,
+            text : body.text,
+            youtubeId : body.youtubeId
+        })
+        await content.save()
+        await courseModel.findByIdAndUpdate(course._id, {
+            $push: {
+                details : content._id
+            }
+        }, {
+            new: true
+        })
+        return res.status(201).json({
+            message: "create content success",
+            data: content
+        })
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
     }
 }

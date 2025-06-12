@@ -9,7 +9,7 @@ var courseDetailSchema = new mongoose.Schema({
         enum: ['video', 'text'],
         default : 'video'
     },
-    videoId : {
+    youtubeId : {
         type : String,
     },
     text : {
