@@ -63,7 +63,10 @@ export const getCategories = async (req, res) => {
 export const getCourseById = async (req, res) => {
     try {
         const { id } = req.params;
-        const course = await courseModel.findById(id).populate('details');
+        const course = await courseModel.findById(id).populate({
+            path: 'details',
+            select: 'title type',
+        });
         return res.json({
             message: "get course by id success",
             data: course
@@ -275,6 +278,21 @@ export const updateContentCourse = async (req, res) => {
         })
     }
     catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
+
+export const deleteContentCourse = async (req, res) => {
+    try {
+        const { id } = req.params
+        const course = await courseDetailModel.findByIdAndDelete(id)
+        return res.status(201).json({
+            message: "delete course content success"
+        })
+    } catch (error) {
         console.log(error);
         return res.status(500).json({
             message: "Internal Server Error"
